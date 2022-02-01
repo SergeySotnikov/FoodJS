@@ -1,8 +1,11 @@
 "use strict";
 
-function form() {
+import { closeModal, openModal } from "./modal";
+import { postData } from "../services/services";
+
+function form(formSelector) {
   //forms
-  const forms = document.querySelectorAll("form");
+  const forms = document.querySelectorAll(formSelector);
 
   const message = {
     loading: "Загрузка",
@@ -13,19 +16,6 @@ function form() {
   forms.forEach((item) => {
     bindPostData(item);
   });
-
-  //POST
-  const postData = async (url, data) => {
-    const result = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: data,
-    });
-
-    return await result.json();
-  };
 
   function bindPostData(form) {
     form.addEventListener("submit", (e) => {
@@ -59,7 +49,7 @@ function form() {
     const prevModalDialog = document.querySelector(".modal__dialog");
 
     prevModalDialog.classList.add("hide");
-    openModal();
+    openModal(".modal");
 
     const thanksModal = document.createElement("div");
     thanksModal.classList.add("modal__dialog");
@@ -74,9 +64,9 @@ function form() {
     setTimeout(() => {
       thanksModal.remove();
       prevModalDialog.classList.remove("hide");
-      closeModal();
+      closeModal(".modal");
     }, 3000);
   }
 }
 
-module.exports = form;
+export default form;

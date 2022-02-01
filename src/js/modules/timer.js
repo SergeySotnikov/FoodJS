@@ -1,9 +1,9 @@
 "use strict";
 
-function timer() {
+function timer(id, deadline) {
   //Timer
 
-  const dedline = Date.parse("2022-02-30");
+  const dedline = Date.parse(deadline);
 
   function getTimeRemaining(endTime) {
     const t = endTime - Date.parse(new Date());
@@ -31,10 +31,10 @@ function timer() {
 
     function updateClock() {
       const t = getTimeRemaining(endTime);
-      days.innerHTML = t.days;
-      hours.innerHTML = t.hours;
-      minutes.innerHTML = t.minutes;
-      seconds.innerHTML = t.seconds;
+      days.innerHTML = `${t.days}`;
+      hours.innerHTML = `${t.hours}`;
+      minutes.innerHTML = `${t.minutes}`;
+      seconds.innerHTML = `${t.seconds}`;
 
       if (t.total <= 0) {
         clearInterval(timerInterval);
@@ -44,7 +44,7 @@ function timer() {
     updateClock();
   }
 
-  setClock(".timer", dedline);
+  setClock(id, dedline);
 }
 
-module.exports = timer;
+export default timer;
